@@ -1,4 +1,7 @@
+extern crate chrono;
 extern crate crypto;
+
+use chrono::offset::utc::UTC;
 
 use crypto::mac::Mac;
 use crypto::hmac::Hmac;
@@ -33,6 +36,8 @@ pub fn sbits(bits: &[u8]) -> u32 {
     }
 }
 
-pub fn hotp(snum : u32) -> u32 {
-    snum % 10u32.pow(6)
+pub fn hotp(digits : u32, k : &[u8], c : &[u8]) -> u32 {
+    let hmac_value = hmac_sha1(k, c);
+    let dbc = sbits(hmac_value.as_slice());
+    dbc % 10u32.pow(digits)
 }

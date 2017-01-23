@@ -9,45 +9,46 @@ fn format_hex(s: &[u8]) -> String {
     format!("0x{}", human_representation.join(""))
 }
 
+
 #[test]
-fn it_conforms_to_example_given_in_rfc6238() {
-    let counter : &[u8] = &[ 0x00; 8 ];
-    println!("HMAC-SHA-1:");
-    println!("================================================================================");
-    let example : &[u8] = &[
-        0x1f,
-        0x86,
-        0x98,
-        0x69,
-        0x0e,
+fn it_conforms_to_example_1_given_in_rfc6238() {
+    let key = "12345678901234567890".as_bytes();
+    let mut c_buffer = [0; 8];
+    c_buffer[7] = 1;
+    let totp_value = rfc6238::hotp(8, key, &c_buffer);
+    assert_eq!(94287082, totp_value);
+}
+
+#[test]
+fn it_conforms_to_example_4_given_in_rfc6238() {
+    let key = "12345678901234567890".as_bytes();
+    let mut c_buffer = [
+        0x00,
+        0x00,
+        0x00,
+        0x00,
         0x02,
-        0xca,
-        0x16,
-        0x61,
-        0x85,
-        0x50,
-        0xef,
-        0x7f,
-        0x19,
-        0xda,
-        0x8e,
-        0x94,
-        0x5b,
-        0x55,
-        0x5a
+        0x35,
+        0x23,
+        0xec
     ];
+    let totp_value = rfc6238::hotp(8, key, &c_buffer);
+    assert_eq!(07081804, totp_value);
+}
 
-    println!("HMAC SHA-1: {}", format_hex(example));
-    println!("================================================================================");
-
-    println!("Offset index: {}", rfc6238::offset(example));
-    println!("================================================================================");
-
-    println!("P: {:x}", rfc6238::sbits(example));
-    println!("================================================================================");
-
-    let hotp_value = rfc6238::hotp(rfc6238::sbits(example));
-    println!("HOTP Value: {}", hotp_value);
-    println!("================================================================================");
-    assert!(hotp_value == 872921);
+#[test]
+fn it_conforms_to_example_7_given_in_rfc6238() {
+    let key = "12345678901234567890".as_bytes();
+    let mut c_buffer = [
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x02,
+        0x35,
+        0x23,
+        0xed
+    ];
+    let totp_value = rfc6238::hotp(8, key, &c_buffer);
+    assert_eq!(14050471, totp_value);
 }
