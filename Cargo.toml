@@ -1,0 +1,15 @@
+[package]
+name = "rfc6238"
+version = "0.1.0"
+authors = [
+  "Ryan De Villa <ryand@nulogy.com>",
+  "Justin Fitzsimmons <justinf@nulogy.com>"
+]
+
+[dependencies]
+
+[profile.dev]
+debug = true
+
+[lib]
+name = "rfc6238"
