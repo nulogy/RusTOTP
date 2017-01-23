@@ -34,10 +34,10 @@ fn sbits(bits: &[u8]) -> u32 {
     }
 }
 
-pub fn hotp(digits : u32, k : &[u8], c : &[u8]) -> u32 {
-    let hmac_value = hmac_sha1(k, c);
+pub fn hotp(desired_code_length : u8, key: &[u8], counter: &[u8]) -> u32 {
+    let hmac_value = hmac_sha1(key, counter);
     let dbc = sbits(hmac_value.as_slice());
-    dbc % 10u32.pow(digits)
+    dbc % 10u32.pow(desired_code_length as u32)
 }
 
 fn to_bytes(x : u64) -> [u8; 8] {
@@ -49,11 +49,11 @@ fn to_bytes(x : u64) -> [u8; 8] {
     temp
 }
 
-pub fn totp(digits : u32, k : &[u8], time : u64) -> u32 {
+pub fn totp(desired_code_length: u8, key: &[u8], time: u64) -> u32 {
     let t0 = 0;
     let timestep = 30;
 
     let t = (time - t0) / timestep;
 
-    hotp(digits, k, &to_bytes(t))
+    hotp(desired_code_length, key, &to_bytes(t))
 }
