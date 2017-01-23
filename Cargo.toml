@@ -15,3 +15,7 @@ debug = true
 
 [lib]
 name = "rfc6238"
+
+[[bin]]
+name = "totp-client"
+path = "bin/main.rs"

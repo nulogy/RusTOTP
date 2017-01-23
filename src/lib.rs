@@ -1,7 +1,4 @@
-extern crate chrono;
 extern crate crypto;
-
-use chrono::offset::utc::UTC;
 
 use crypto::mac::Mac;
 use crypto::hmac::Hmac;
@@ -9,20 +6,22 @@ use crypto::sha1::Sha1;
 
 use std::mem;
 
-pub fn hmac_sha1(k : &[u8], c : &[u8]) -> Vec<u8> {
-    let mut hmac = Hmac::new(Sha1::new(), k);
-    for i in 0..c.len() {
-        hmac.input(&c[i..i+1]);
+fn hmac_sha1(key : &[u8], message: &[u8]) -> Vec<u8> {
+    let mut hmac = Hmac::new(Sha1::new(), key);
+
+    for i in message.iter() {
+        hmac.input(&[*i])
     }
+
     let result = hmac.result();
     result.code().to_vec()
 }
 
-pub fn offset(b : &[u8]) -> usize {
+fn offset(b : &[u8]) -> usize {
     (b.last().unwrap() & 0xf) as usize
 }
 
-pub fn sbits(bits: &[u8]) -> u32 {
+fn sbits(bits: &[u8]) -> u32 {
     let offset = offset(bits);
     unsafe { mem::transmute::<[u8; 4], u32>(
             [
@@ -41,7 +40,7 @@ pub fn hotp(digits : u32, k : &[u8], c : &[u8]) -> u32 {
     dbc % 10u32.pow(digits)
 }
 
-pub fn to_bytes(x : u64) -> [u8; 8] {
+fn to_bytes(x : u64) -> [u8; 8] {
     let mut temp = [0u8; 8];
     for byte_index in 0..8 {
         let shift_amount: usize = 8 * (7 - byte_index);
