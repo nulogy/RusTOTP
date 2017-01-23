@@ -15,7 +15,7 @@ const USAGE: &'static str = "
 totp-client
 
 Usage:
-  totp-client <key> [--code-length=<cl>] [--time=<timestamp>]
+  totp-client <key> [--code-length=<cl>] [--time=<timestamp>] [--timestep=<ts>]
   totp-client --version
   totp-client (-h | --help)
 
@@ -24,6 +24,7 @@ Options:
   --version             Show version.
   --code-length=<l>     Specifies the desired length of the output code, defaults to 6
   --time=<timestamp>    Specifies the unix timestamp to be used, defaults to current time
+  --timestep=<ts>       Specifies the amount of time in seconds to wait until generating a new TOTP value, defaults to 30
 ";
 
 #[derive(Debug, RustcDecodable)]
@@ -33,6 +34,7 @@ struct Args {
     flag_help: bool,
     flag_code_length: Option<String>,
     flag_time: Option<u64>,
+    flag_timestep: Option<u64>,
 }
 
 pub fn main() {
@@ -50,7 +52,8 @@ pub fn main() {
     let raw_code_length = args.flag_code_length.unwrap_or(String::from_str("6").unwrap());
     let code_length: u8 = raw_code_length.parse().unwrap();
     let timestamp = args.flag_time.unwrap_or(UTC::now().timestamp() as u64);
+    let timestep = args.flag_timestep.unwrap_or(30);
 
-    let code = rfc6238::totp(code_length, args.arg_key.as_bytes(), timestamp);
+    let code = rfc6238::totp(code_length, timestep, args.arg_key.as_bytes(), timestamp);
     println!("{}", code);
 }

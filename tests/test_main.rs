@@ -59,6 +59,6 @@ fn hotp_conforms_to_example_7_given_in_rfc6238() {
 fn totp_conforms_to_example_1_given_in_rfc6238() {
     let key = "12345678901234567890".as_bytes();
     let current_time = 59;
-    let totp_value = totp(8, key, current_time);
+    let totp_value = totp(8, 30, key, current_time);
     assert_eq!(94287082, totp_value);
 }

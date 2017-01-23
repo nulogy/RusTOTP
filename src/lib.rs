@@ -46,9 +46,8 @@ fn to_bytes(x: u64) -> [u8; 8] {
     temp
 }
 
-pub fn totp(desired_code_length: u8, key: &[u8], time: u64) -> u32 {
+pub fn totp(desired_code_length: u8, timestep: u64, key: &[u8], time: u64) -> u32 {
     let t0 = 0;
-    let timestep = 30;
 
     let t = (time - t0) / timestep;
 
