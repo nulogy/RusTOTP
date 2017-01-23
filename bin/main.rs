@@ -51,7 +51,6 @@ pub fn main() {
     let code_length: u8 = raw_code_length.parse().unwrap();
     let timestamp = args.flag_time.unwrap_or(UTC::now().timestamp() as u64);
 
-    println!("{}", args.arg_key);
-    println!("{}", code_length);
-    println!("{}", timestamp);
+    let code = rfc6238::totp(code_length, args.arg_key.as_bytes(), timestamp);
+    println!("{}", code);
 }
