@@ -32,7 +32,7 @@ struct Args {
     flag_version: bool,
     flag_help: bool,
     flag_code_length: Option<String>,
-    flag_time: Option<u64>
+    flag_time: Option<u64>,
 }
 
 pub fn main() {
