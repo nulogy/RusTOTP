@@ -10,7 +10,7 @@ fn format_hex(s: &[u8]) -> String {
 }
 
 #[test]
-fn it_works() {
+fn it_conforms_to_example_given_in_rfc6238() {
     let counter : &[u8] = &[ 0x00; 8 ];
     println!("HMAC-SHA-1:");
     println!("================================================================================");
@@ -46,7 +46,8 @@ fn it_works() {
     println!("P: {:x}", rfc6238::sbits(example));
     println!("================================================================================");
 
-    println!("HOTP Value: {}", rfc6238::hotp(rfc6238::sbits(example)));
+    let hotp_value = rfc6238::hotp(rfc6238::sbits(example));
+    println!("HOTP Value: {}", hotp_value);
     println!("================================================================================");
-    assert!(false);
+    assert!(hotp_value == 872921);
 }
