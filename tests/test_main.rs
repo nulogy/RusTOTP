@@ -2,7 +2,7 @@ extern crate rfc6238;
 
 pub fn format_hex(s: &[u8]) -> String {
     let mut human_representation: Vec<String> = Vec::new();
-    
+
     for c in s.iter() {
         human_representation.push(format!("{:02x}", c))
     }
@@ -59,11 +59,4 @@ fn totp_conforms_to_example_1_given_in_rfc6238() {
     let current_time = 59;
     let totp_value = rfc6238::totp(8, key, current_time);
     assert_eq!(94287082, totp_value);
-}
-
-#[test]
-fn shit() {
-    println!("{}", 0b1010u32 >> 8);
-    println!("{}", format_hex(&rfc6238::to_bytes(0b1111111011001000)));
-    assert!(false);
 }
