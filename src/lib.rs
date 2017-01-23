@@ -41,3 +41,21 @@ pub fn hotp(digits : u32, k : &[u8], c : &[u8]) -> u32 {
     let dbc = sbits(hmac_value.as_slice());
     dbc % 10u32.pow(digits)
 }
+
+pub fn to_bytes(x : u64) -> [u8; 4] {
+    [
+        (x >> 12) as u8,
+        (x >> 8) as u8,
+        (x >> 4) as u8,
+        x as u8
+    ]
+}
+
+pub fn totp(digits : u32, k : &[u8], time : u64) -> u32 {
+    let t0 = 0;
+    let timestep = 30;
+
+    let t = (time - t0) / timestep;
+
+    hotp(digits, k, &to_bytes(t))
+}
