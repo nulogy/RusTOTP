@@ -11,7 +11,6 @@ extern crate base32;
 
 use std::{process, thread, time, io};
 use std::io::prelude::*;
-use std::str::FromStr;
 
 const VERSION: &'static str = "0.1";
 const USAGE: &'static str = "
@@ -36,17 +35,17 @@ struct Args {
     arg_key: String,
     flag_version: bool,
     flag_help: bool,
-    flag_code_length: Option<String>,
-    flag_time: Option<u64>,
-    flag_timestep: Option<u64>,
+    flag_code_length: Option<usize>,
+    flag_time: Option<i64>,
+    flag_timestep: Option<i64>,
     flag_interactive: bool,
 }
 
-fn interactive(key: &[u8], code_length: u8, timestep: u64) {
+fn interactive(key: &[u8], code_length: usize, timestep: i64) {
     let mut stderr = io::stderr();
     let mut current_time = UTC::now().timestamp();
 
-    println!("{}", rfc6238::format_code(rfc6238::totp(code_length, timestep, key, current_time as u64), code_length as usize));
+    println!("{}", rfc6238::totp(code_length, timestep, key, current_time));
 
     let mut full_line = String::with_capacity(timestep as usize);
     for _ in 0..timestep {
@@ -54,7 +53,7 @@ fn interactive(key: &[u8], code_length: u8, timestep: u64) {
     }
     writeln!(stderr, "{}", full_line).unwrap();
 
-    let mut seconds = current_time % timestep as i64;
+    let mut seconds = current_time % timestep;
 
     let mut partial_line = String::with_capacity(timestep as usize);
     for _ in 0..seconds {
@@ -64,12 +63,12 @@ fn interactive(key: &[u8], code_length: u8, timestep: u64) {
 
     loop {
         if seconds == 0 as i64 {
-            println!("\n{}", rfc6238::format_code(rfc6238::totp(code_length, timestep, key, current_time as u64), code_length as usize));
+            println!("\n{}", rfc6238::totp(code_length, timestep, key, current_time));
             writeln!(stderr, "{}", full_line).unwrap();
         }
         thread::sleep(time::Duration::from_secs(1));
         current_time = UTC::now().timestamp();
-        seconds = current_time % timestep as i64;
+        seconds = current_time % timestep;
         stderr.write("#".as_bytes()).unwrap();
     }
 }
@@ -91,9 +90,8 @@ pub fn main() {
         writeln!(io::stderr(), "Failed to base32-decode key, quitting").unwrap();
         process::exit(1);
     });
-    let raw_code_length = args.flag_code_length.unwrap_or(String::from_str("6").unwrap());
-    let code_length: u8 = raw_code_length.parse().unwrap();
-    let timestamp = args.flag_time.unwrap_or(UTC::now().timestamp() as u64);
+    let code_length = args.flag_code_length.unwrap_or(6);
+    let timestamp = args.flag_time.unwrap_or(UTC::now().timestamp());
     let timestep = args.flag_timestep.unwrap_or(30);
 
     if args.flag_interactive {
@@ -102,5 +100,5 @@ pub fn main() {
     }
 
     let code = rfc6238::totp(code_length, timestep, args.arg_key.as_bytes(), timestamp);
-    println!("{}", rfc6238::format_code(code, code_length as usize));
+    println!("{}", code);
 }
