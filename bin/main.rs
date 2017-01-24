@@ -7,8 +7,7 @@ extern crate rustc_serialize;
 extern crate docopt;
 use docopt::Docopt;
 
-extern crate base64;
-use base64::decode;
+extern crate base32;
 
 use std::{process, thread, time, io};
 use std::io::prelude::*;
@@ -87,7 +86,11 @@ pub fn main() {
         process::exit(0);
     }
 
-    let decoded_key = decode(args.arg_key.as_str()).unwrap();
+    let alphabet = base32::Alphabet::RFC4648 { padding: true };
+    let decoded_key = base32::decode(alphabet, args.arg_key.to_uppercase().as_str()).unwrap_or_else(|| {
+        writeln!(io::stderr(), "Failed to base32-decode key, quitting").unwrap();
+        process::exit(1);
+    });
     let raw_code_length = args.flag_code_length.unwrap_or(String::from_str("6").unwrap());
     let code_length: u8 = raw_code_length.parse().unwrap();
     let timestamp = args.flag_time.unwrap_or(UTC::now().timestamp() as u64);
