@@ -46,7 +46,7 @@ fn interactive(key: &[u8], code_length: u8, timestep: u64) {
     let mut stderr = io::stderr();
     let mut current_time = UTC::now().timestamp();
 
-    println!("{}", rfc6238::totp(code_length, timestep, key, current_time as u64));
+    println!("{}", rfc6238::format_code(rfc6238::totp(code_length, timestep, key, current_time as u64), code_length as usize));
 
     let mut full_line = String::with_capacity(timestep as usize);
     for _ in 0..timestep {
@@ -64,7 +64,7 @@ fn interactive(key: &[u8], code_length: u8, timestep: u64) {
 
     loop {
         if seconds == 0 as i64 {
-            println!("\n{}", rfc6238::totp(code_length, timestep, key, current_time as u64));
+            println!("\n{}", rfc6238::format_code(rfc6238::totp(code_length, timestep, key, current_time as u64), code_length as usize));
             writeln!(stderr, "{}", full_line).unwrap();
         }
         thread::sleep(time::Duration::from_secs(1));
@@ -102,5 +102,5 @@ pub fn main() {
     }
 
     let code = rfc6238::totp(code_length, timestep, args.arg_key.as_bytes(), timestamp);
-    println!("{}", code);
+    println!("{}", rfc6238::format_code(code, code_length as usize));
 }

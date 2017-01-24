@@ -53,3 +53,15 @@ pub fn totp(desired_code_length: u8, timestep: u64, key: &[u8], time: u64) -> u3
 
     hotp(desired_code_length, key, &to_bytes(t))
 }
+
+pub fn format_code(code: u32, width: usize) -> String {
+    let mut output = String::with_capacity(width);
+    let string_code = format!("{}", code);
+    let padding_size = width - string_code.len();
+
+    for _ in 0..padding_size {
+        output.push('0');
+    }
+    output.push_str(string_code.as_str());
+    output
+}
