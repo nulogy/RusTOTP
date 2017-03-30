@@ -4,7 +4,7 @@ use crypto::mac::Mac;
 use crypto::hmac::Hmac;
 use crypto::sha1::Sha1;
 
-use std::{mem, fmt};
+use std::fmt;
 
 fn hmac_sha1(key: &[u8], message: &[u8]) -> Vec<u8> {
     let mut hmac = Hmac::new(Sha1::new(), key);
@@ -23,12 +23,13 @@ fn offset(b: &[u8]) -> usize {
 
 fn sbits(bits: &[u8]) -> u32 {
     let offset = offset(bits);
-    unsafe {
-        mem::transmute::<[u8; 4], u32>([bits[offset + 3],
-                                        bits[offset + 2],
-                                        bits[offset + 1],
-                                        bits[offset] & 0x7f])
-    }
+
+    let mut val: u32 = 0;
+    val += bits[offset + 3] as u32;
+    val += (bits[offset + 2] as u32) << 8;
+    val += (bits[offset + 1] as u32) << 16;
+    val += ((bits[offset] as u32) & 0x7f) << 24;
+    val
 }
 
 pub struct HotpOutput {
