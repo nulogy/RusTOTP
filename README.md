@@ -4,9 +4,10 @@ A simple Rust implementation of the Time-Based One Time Password (TOTP) and HMAC
 
 # Usage
 
-Build the library:
+Build the command-line client from the rustotp_cli crate:
 
 ```
+$ cd rustotp_cli
 $ cargo build
 ```
 
