@@ -1,6 +1,8 @@
-extern crate rfc6238;
+extern crate rusthotp;
+extern crate rustotp;
 
-use rfc6238::{hotp, totp};
+use rusthotp::hotp;
+use rustotp::totp;
 
 pub fn format_hex(s: &[u8]) -> String {
     let mut human_representation: Vec<String> = Vec::new();
