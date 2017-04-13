@@ -2,8 +2,6 @@ extern crate rusthotp;
 
 use rusthotp::{ HotpOutput, hotp };
 
-use std::fmt;
-
 fn to_bytes(x: i64) -> [u8; 8] {
     let mut temp = [0u8; 8];
     for byte_index in 0..8 {
