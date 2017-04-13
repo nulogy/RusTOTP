@@ -1,24 +1,4 @@
-[package]
-name = "rfc6238"
-version = "0.1.0"
-authors = [
-  "Ryan De Villa <ryand@nulogy.com>",
-  "Justin Fitzsimmons <justinf@nulogy.com>"
+[workspace]
+members = [
+    "rustotp",
 ]
-
-[dependencies]
-docopt = "0.7"
-chrono = "0.2"
-rust-crypto = "^0.2"
-rustc-serialize = "0.3"
-base32 = "0.3"
-
-[profile.dev]
-debug = true
-
-[lib]
-name = "rfc6238"
-
-[[bin]]
-name = "totp-client"
-path = "bin/main.rs"
