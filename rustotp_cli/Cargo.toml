@@ -1,5 +1,5 @@
 [package]
-name = "rustotp"
+name = "rustotp_cli"
 version = "0.1.0"
 authors = [
   "Ryan De Villa <ryand@nulogy.com>",
@@ -11,10 +11,9 @@ docopt = "0.7"
 chrono = "0.2"
 rust-crypto = "^0.2"
 rustc-serialize = "0.3"
+rustotp = { version = "0.1.0", path = "../rustotp" }
 base32 = "0.3"
 
-[profile.dev]
-debug = true
-
-[lib]
-name = "rfc6238"
+[[bin]]
+name = "rustotp_cli"
+path = "bin/main.rs"
