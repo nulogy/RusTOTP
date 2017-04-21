@@ -1,0 +1,18 @@
+[package]
+name = "rustotp_cli"
+version = "0.1.0"
+authors = [
+  "Ryan De Villa <ryand@nulogy.com>",
+  "Justin Fitzsimmons <justinf@nulogy.com>"
+]
+
+[dependencies]
+base32 = "0.3"
+chrono = "0.2"
+docopt = "0.7"
+rustc-serialize = "0.3"
+rustotp = { version = "0.1.0", path = "../rustotp" }
+
+[[bin]]
+name = "rustotp_cli"
+path = "bin/main.rs"

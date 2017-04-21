@@ -2,4 +2,4 @@ image: jimmycuadra/rust
 
 test:
   script:
-    - cargo test
+    - cargo test --all

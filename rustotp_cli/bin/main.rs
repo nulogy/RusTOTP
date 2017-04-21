@@ -1,4 +1,4 @@
-extern crate rfc6238;
+extern crate rustotp;
 
 extern crate chrono;
 use chrono::*;
@@ -45,7 +45,7 @@ fn interactive(key: &[u8], code_length: usize, timestep: i64) {
     let mut stderr = io::stderr();
     let mut current_time = UTC::now().timestamp();
 
-    println!("{}", rfc6238::totp(code_length, timestep, key, current_time));
+    println!("{}", rustotp::totp(code_length, timestep, key, current_time));
 
     let mut full_line = String::with_capacity(timestep as usize);
     for _ in 0..timestep {
@@ -63,7 +63,7 @@ fn interactive(key: &[u8], code_length: usize, timestep: i64) {
 
     loop {
         if seconds == 0 as i64 {
-            println!("\n{}", rfc6238::totp(code_length, timestep, key, current_time));
+            println!("\n{}", rustotp::totp(code_length, timestep, key, current_time));
             writeln!(stderr, "{}", full_line).unwrap();
         }
         thread::sleep(time::Duration::from_secs(1));
@@ -99,6 +99,6 @@ pub fn main() {
         process::exit(0);
     }
 
-    let code = rfc6238::totp(code_length, timestep, args.arg_key.as_bytes(), timestamp);
+    let code = rustotp::totp(code_length, timestep, args.arg_key.as_bytes(), timestamp);
     println!("{}", code);
 }

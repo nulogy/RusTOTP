@@ -1,0 +1,16 @@
+[package]
+name = "rusthotp"
+version = "0.1.0"
+authors = [
+  "Ryan De Villa <ryand@nulogy.com>",
+  "Justin Fitzsimmons <justinf@nulogy.com>"
+]
+
+[dependencies]
+rust-crypto = "^0.2"
+
+[profile.dev]
+debug = true
+
+[lib]
+name = "rusthotp"
