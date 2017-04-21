@@ -1,8 +1,4 @@
-extern crate crypto;
-
-use crypto::mac::Mac;
-use crypto::hmac::Hmac;
-use crypto::sha1::Sha1;
+extern crate hmacsha1;
 
 use std::fmt;
 
@@ -30,20 +26,9 @@ use std::fmt;
 /// rusthotp::hotp(8, "Hello world!".as_bytes(), &[0; 8]);
 /// ```
 pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8]) -> HotpOutput {
-    let hmac_value = hmac_sha1(key, counter);
-    let dbc = sbits(hmac_value.as_slice());
+    let hmac_value = hmacsha1::hmac_sha1(key, counter);
+    let dbc = sbits(&hmac_value);
     HotpOutput{ code: dbc % 10u32.pow(desired_code_length as u32), length: desired_code_length }
-}
-
-fn hmac_sha1(key: &[u8], message: &[u8]) -> Vec<u8> {
-    let mut hmac = Hmac::new(Sha1::new(), key);
-
-    for i in message.iter() {
-        hmac.input(&[*i])
-    }
-
-    let result = hmac.result();
-    result.code().to_vec()
 }
 
 fn offset(b: &[u8]) -> usize {
