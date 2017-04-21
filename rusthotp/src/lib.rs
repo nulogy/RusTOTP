@@ -27,7 +27,7 @@ use std::fmt;
 /// secret ASCII key `"Hello world!"` and current counter `0`:
 ///
 /// ```
-/// rusthotp::hotp(8, "Hello world!".as_bytes(), [0; 8]);
+/// rusthotp::hotp(8, "Hello world!".as_bytes(), &[0; 8]);
 /// ```
 pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8]) -> HotpOutput {
     let hmac_value = hmac_sha1(key, counter);
