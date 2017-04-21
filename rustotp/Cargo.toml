@@ -7,7 +7,6 @@ authors = [
 ]
 
 [dependencies]
-rust-crypto = "^0.2"
 rusthotp = { version = "0.1.0", path = "../rusthotp" }
 
 [profile.dev]

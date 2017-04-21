@@ -7,7 +7,7 @@ authors = [
 ]
 
 [dependencies]
-rust-crypto = "^0.2"
+hmac-sha1 = "^0.1"
 
 [profile.dev]
 debug = true
