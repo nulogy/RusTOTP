@@ -39,11 +39,11 @@ pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8; 8]) -> HotpOu
     HotpOutput{ code: dbc % 10u32.pow(desired_code_length as u32), length: desired_code_length }
 }
 
-fn offset(b: &[u8]) -> usize {
+fn offset(b: &[u8; hmacsha1::SHA1_DIGEST_BYTES]) -> usize {
     (b.last().unwrap() & 0xf) as usize
 }
 
-fn sbits(bits: &[u8]) -> u32 {
+fn sbits(bits: &[u8; hmacsha1::SHA1_DIGEST_BYTES]) -> u32 {
     let offset = offset(bits);
 
     let mut val: u32 = 0;
