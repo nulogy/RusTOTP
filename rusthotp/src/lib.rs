@@ -12,11 +12,11 @@ use std::fmt;
 /// 10^{`desired_code_length`}-1 from the 4-byte value extracted
 /// in the last step.
 ///
-/// Note that it is the responsibility of the caller to increment the counter accordingly per invocation
+/// Note that it is the responsibility of the caller to increment the counter accordingly per invocation.
 ///
 /// # Examples
 ///
-/// To generate an HOTP value between 0 and 10^6 - 1, given the shared
+/// To generate a six-digit HOTP value between 0 and 10^6 - 1, given the shared
 /// secret ASCII key `"Hello world!"` and current counter `0`:
 ///
 /// ```
@@ -24,7 +24,7 @@ use std::fmt;
 /// assert_eq!(format!("{}", six_digit_result), "124111");
 /// ```
 ///
-/// To generate an HOTP value between 0 and 10^8 - 1, given the shared
+/// To generate an eight-digit HOTP value between 0 and 10^8 - 1, given the shared
 /// secret ASCII key `"12345678901234567890"` and current counter `1`:
 ///
 /// ```

@@ -14,14 +14,14 @@ $ cargo build
 Generate a single OTP from a key:
 
 ```
-$ ./target/debug/totp-client 42
+$ ./target/debug/rustotp_cli 42
 663792
 ```
 
 Or, start an interactive session where a new OTP will be generated at every timestep, with a visual progress bar:
 
 ```
-$ ./target/debug/totp-client 42 --timestep=5 --interactive
+$ ./target/debug/rustotp_cli 42 --timestep=5 --interactive
 495515
 #####
 #####
