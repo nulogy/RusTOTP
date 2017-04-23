@@ -5,6 +5,13 @@ authors = [
   "Ryan De Villa <ryand@nulogy.com>",
   "Justin Fitzsimmons <justinf@nulogy.com>"
 ]
+description = "A simple, pure Rust implementation of the HMAC-based One-Time Password algorithm specified in RFC 4226."
+license = "MIT"
+repository = "https://github.com/nulogy/RusTOTP"
+keywords = ["hotp", "rfc4226"]
+
+[badges]
+travis-ci = { repository = "nulogy/RusTOTP" }
 
 [dependencies]
 hmac-sha1 = "^0.1"

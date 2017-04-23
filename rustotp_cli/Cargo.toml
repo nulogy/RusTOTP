@@ -5,13 +5,20 @@ authors = [
   "Ryan De Villa <ryand@nulogy.com>",
   "Justin Fitzsimmons <justinf@nulogy.com>"
 ]
+description = "A command line sample TOTP (RFC 6238) app based on the rustotp crate"
+license = "MIT"
+repository = "https://github.com/nulogy/RusTOTP"
+keywords = ["totp", "rfc6238"]
+
+[badges]
+travis-ci = { repository = "nulogy/RusTOTP" }
 
 [dependencies]
 base32 = "0.3"
 chrono = "0.2"
 docopt = "0.7"
 rustc-serialize = "0.3"
-rustotp = { version = "0.1.0", path = "../rustotp" }
+rustotp = { version = "0.1.0" }
 
 [[bin]]
 name = "rustotp_cli"

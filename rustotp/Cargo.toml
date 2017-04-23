@@ -5,9 +5,16 @@ authors = [
   "Ryan De Villa <ryand@nulogy.com>",
   "Justin Fitzsimmons <justinf@nulogy.com>"
 ]
+description = "A simple, pure Rust implementation of the Time-Based One Time Password (TOTP) algorithm specified in RFC 6238."
+license = "MIT"
+repository = "https://github.com/nulogy/RusTOTP"
+keywords = ["totp", "rfc6238"]
+
+[badges]
+travis-ci = { repository = "nulogy/RusTOTP" }
 
 [dependencies]
-rusthotp = { version = "0.1.0", path = "../rusthotp" }
+rusthotp = { version = "0.1.0" }
 
 [profile.dev]
 debug = true

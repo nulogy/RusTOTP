@@ -1,5 +1,6 @@
 [workspace]
 members = [
     "rustotp",
+    "rusthotp",
     "rustotp_cli",
 ]
