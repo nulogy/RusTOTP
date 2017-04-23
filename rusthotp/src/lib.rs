@@ -12,9 +12,7 @@ use std::fmt;
 /// 10^{`desired_code_length`}-1 from the 4-byte value extracted
 /// in the last step.
 ///
-/// Note that it is the responsibility of the caller to:
-///
-/// * Increment the counter accordingly per invocation
+/// Note that it is the responsibility of the caller to increment the counter accordingly per invocation
 ///
 /// # Examples
 ///
