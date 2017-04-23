@@ -14,7 +14,6 @@ use std::fmt;
 ///
 /// Note that it is the responsibility of the caller to:
 ///
-/// * Fulfill the precondition that `counter` is an 8-byte value
 /// * Increment the counter accordingly per invocation
 ///
 /// # Examples
@@ -36,7 +35,7 @@ use std::fmt;
 /// ```
 
 
-pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8]) -> HotpOutput {
+pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8; 8]) -> HotpOutput {
     let hmac_value = hmacsha1::hmac_sha1(key, counter);
     let dbc = sbits(&hmac_value);
     HotpOutput{ code: dbc % 10u32.pow(desired_code_length as u32), length: desired_code_length }
