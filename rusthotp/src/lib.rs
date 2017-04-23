@@ -19,12 +19,23 @@ use std::fmt;
 ///
 /// # Examples
 ///
-/// To generate an HOTP value between 0 and 10^8 - 1, given the shared
+/// To generate an HOTP value between 0 and 10^6 - 1, given the shared
 /// secret ASCII key `"Hello world!"` and current counter `0`:
 ///
 /// ```
-/// rusthotp::hotp(8, "Hello world!".as_bytes(), &[0; 8]);
+/// let six_digit_result = rusthotp::hotp(6, "Hello world!".as_bytes(), &[0; 8]);
+/// assert_eq!(format!("{}", six_digit_result), "124111");
 /// ```
+///
+/// To generate an HOTP value between 0 and 10^8 - 1, given the shared
+/// secret ASCII key `"12345678901234567890"` and current counter `1`:
+///
+/// ```
+/// let eight_digit_result = rusthotp::hotp(8, "12345678901234567890".as_bytes(), &[0, 0, 0, 0, 0, 0, 0, 1]);
+/// assert_eq!(format!("{}", eight_digit_result), "94287082");
+/// ```
+
+
 pub fn hotp(desired_code_length: usize, key: &[u8], counter: &[u8]) -> HotpOutput {
     let hmac_value = hmacsha1::hmac_sha1(key, counter);
     let dbc = sbits(&hmac_value);
