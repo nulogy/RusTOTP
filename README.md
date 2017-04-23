@@ -1,6 +1,6 @@
 # RusTOTP
 
-A simple Rust implementation of the Time-Based One Time Password (TOTP) and HMAC-based One-Time Password algorithms specified in [RFC 6238](https://tools.ietf.org/html/rfc6238), and [RFC 4226](https://tools.ietf.org/html/rfc4226), respectively.
+A simple Rust implementation of the Time-Based One Time Password (TOTP) and HMAC-based One-Time Password algorithms specified in [RFC 6238](https://tools.ietf.org/html/rfc6238) and [RFC 4226](https://tools.ietf.org/html/rfc4226), respectively.
 
 # Usage
 
