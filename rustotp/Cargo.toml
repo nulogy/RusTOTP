@@ -1,6 +1,6 @@
 [package]
 name = "rustotp"
-version = "0.2.0"
+version = "0.1.0"
 authors = [
   "Ryan De Villa <ryand@nulogy.com>",
   "Justin Fitzsimmons <justinf@nulogy.com>"
