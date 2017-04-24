@@ -9,7 +9,6 @@ pub fn format_hex(s: &[u8]) -> String {
     format!("0x{}", human_representation.join(""))
 }
 
-
 #[test]
 fn hotp_conforms_to_example_1_given_in_rfc6238() {
     let key = "12345678901234567890".as_bytes();
