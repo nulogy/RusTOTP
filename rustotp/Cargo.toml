@@ -1,6 +1,6 @@
 [package]
 name = "rustotp"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
   "Ryan De Villa <ryand@nulogy.com>",
   "Justin Fitzsimmons <justinf@nulogy.com>"
@@ -14,7 +14,8 @@ keywords = ["totp", "rfc6238"]
 travis-ci = { repository = "nulogy/RusTOTP" }
 
 [dependencies]
-rusthotp = { version = "0.1.0" }
+rusthotp = "0.1.0"
+byteorder = "1"
 
 [profile.dev]
 debug = true

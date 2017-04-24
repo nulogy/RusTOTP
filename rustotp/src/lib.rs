@@ -1,6 +1,8 @@
 extern crate rusthotp;
+use rusthotp::{HotpOutput, hotp};
 
-use rusthotp::{ HotpOutput, hotp };
+extern crate byteorder;
+use byteorder::{BigEndian, ByteOrder};
 
 /// Implements the Time-Based One-Time Password algorithm described in [RFC
 /// 6238](https://tools.ietf.org/html/rfc6238),
@@ -26,16 +28,11 @@ use rusthotp::{ HotpOutput, hotp };
 /// let eight_digit_result = rustotp::totp(8, 30, "12345678901234567890".as_bytes(), 59);
 /// assert_eq!(format!("{}", eight_digit_result), "94287082");
 /// ```
-pub fn totp(desired_code_length: usize, timestep: i64, key: &[u8], time: i64) -> HotpOutput {
-    let t = time / timestep;
-    hotp(desired_code_length, key, &to_bytes(t))
-}
 
-fn to_bytes(x: i64) -> [u8; 8] {
-    let mut temp = [0u8; 8];
-    for byte_index in 0..8 {
-        let shift_amount: usize = 8 * (7 - byte_index);
-        temp[byte_index] = (x >> shift_amount) as u8;
-    }
-    temp
+pub fn totp(desired_code_length: usize, timestep: i64, key: &[u8], time: i64) -> HotpOutput {
+    let counter = time / timestep;
+    let mut unpacked_counter = [0; 8];
+    BigEndian::write_i64(&mut unpacked_counter, counter);
+
+    hotp(desired_code_length, key, &unpacked_counter)
 }
