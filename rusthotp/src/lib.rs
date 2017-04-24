@@ -18,24 +18,24 @@ use std::fmt;
 ///
 /// # Examples
 ///
-/// To generate an HOTP value between 0 and 10^6 - 1, given the shared secret ASCII key `"Hello world!"` and current
-/// counter `0`:
+/// To generate a six-digit HOTP value (i.e. between 0 and 10^6 - 1), given the shared secret ASCII key `"Hello world!"`
+/// and current counter `0`:
 ///
 /// ```
-/// let six_digit_result = rusthotp::hotp(6, "Hello world!".as_bytes(), &[0; 8]); assert_eq!(format!("{}",
-/// six_digit_result), "124111");
+/// let six_digit_result = rusthotp::hotp(6, "Hello world!".as_bytes(), &[0; 8]);
+/// assert_eq!(format!("{}", six_digit_result), "124111");
 /// ```
 ///
-/// To generate an HOTP value between 0 and 10^8 - 1, given the shared secret ASCII key `"12345678901234567890"` and
-/// current counter `1`:
+/// To generate an eight-digit HOTP value (i.e. between 0 and 10^8 - 1), given the shared secret ASCII key
+/// `"12345678901234567890"` and current counter `1`:
 ///
 /// ```
 /// let eight_digit_result = rusthotp::hotp(8, "12345678901234567890".as_bytes(), &[0, 0, 0, 0, 0, 0, 0, 1]);
 /// assert_eq!(format!("{}", eight_digit_result), "94287082");
 /// ```
 ///
-/// To generate an HOTP value between 0 and 10^6 - 1, given the shared secret ASCII key "Hello world!" and the unix
-/// timestamp 1493006116 as the counter:
+/// To generate a six-digit HOTP value given the shared secret ASCII key "Hello world!" and the unix timestamp
+/// 1493006116 as the counter:
 ///
 /// ```
 /// # extern crate byteorder;
