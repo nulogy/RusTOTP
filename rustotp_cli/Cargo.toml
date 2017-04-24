@@ -18,7 +18,7 @@ base32 = "0.3"
 chrono = "0.2"
 docopt = "0.7"
 rustc-serialize = "0.3"
-rustotp = { version = "0.1.0" }
+rustotp = "0.1.0"
 
 [[bin]]
 name = "rustotp_cli"
