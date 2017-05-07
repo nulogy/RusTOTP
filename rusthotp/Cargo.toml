@@ -16,6 +16,9 @@ travis-ci = { repository = "nulogy/RusTOTP" }
 [dependencies]
 hmac-sha1 = "^0.1"
 
+[dev-dependencies]
+byteorder = "1"
+
 [profile.dev]
 debug = true
 
